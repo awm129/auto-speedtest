@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="HandheldFriendly" content="True">
+
+	<title>Local Speedtest</title>
+	<link rel="shortcut icon" href="speedtest.png">
+
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/0.71/jquery.csv-0.71.min.js"></script>
+	<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+
+	<script type="text/javascript"> // load the visualisation API
+google.load('visualization', '1', { packages: ['corechart', 'controls'] });
+	</script>
+
+	<script src="speedtest.js"></script>
+</head>
+<body>
+	<div id="chart-div" style="width: 100%; height: 600px"></div>
+</body>
+</html>
