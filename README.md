@@ -19,8 +19,8 @@ Someday this should be automated. In general:
 1. Setup a cron rule to execute `run-speedtest.sh` periodically. I use once every 20 minutes. For example, my crontab entries are:
 
   ```
-*/20 * 1-31/2 * * /home/awm129/src/speedtest/run-speedtest.sh
-10-50/20 * 2-30/2 * * /home/awm129/src/speedtest/run-speedtest.sh
+*/20 * 1-31/2 * * /home/awm129/src/auto-speedtest/run-speedtest.sh
+10-50/20 * 2-30/2 * * /home/awm129/src/auto-speedtest/run-speedtest.sh
   ```
 2. Ensure the `/srv/speedtest/` directory exists and it accessible to cron and your webserver
 3. Configure your webserver to serve the following files:
