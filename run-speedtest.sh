@@ -16,7 +16,7 @@ maxSz=$(($maxSz + 1))
 function removeLine()
 {
 	local file=$1
-	local sz=$(wc -l $file)
+	local sz=$(wc -l $file | cut -f1 -d '')
 
 	if [[ $wc < $maxSz ]]; then
 		return
