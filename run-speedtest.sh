@@ -3,6 +3,7 @@
 dir="/srv/speedtest"
 dat="speedtest-full.csv"
 extract="speedtest.csv"
+last="speedtest-last.csv"
 
 st="/usr/local/bin/speedtest-cli"
 
@@ -30,17 +31,24 @@ function removeLine()
 
 #
 # create csv files if they don't exist
-#
-if [ ! -s $dir/$dat ]; then
+#i
+if [ ! -d $dir ]; then
 	mkdir -p $dir
-	touch $dat
+fi
+
+if [ ! -s $dir/$dat ]; then
+	touch $dir/$dat
 	$st --csv-header > $dir/$dat
 fi
 
 if [ ! -s $dir/$extract ]; then
-	mkdir -p $dir
-	touch $extract
+	touch $dir/$extract
 	$st --csv-header | cut -d, -f4,7,8 > $dir/$extract
+fi
+
+if [ ! -s $dir/$last ]; then
+	touch $dir/$last
+	$st --csv-header > $dir/$last
 fi
 
 #
@@ -49,7 +57,13 @@ fi
 out=$(/usr/local/bin/speedtest-cli --csv)
 
 #
-# write the data to the csv
+# overwrite the last csv
+#
+$st --csv-header > $dir/$last
+echo $out >> $dir/$last
+
+#
+# append to the dat file
 #
 echo $out >> $dir/$dat
 
