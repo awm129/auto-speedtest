@@ -9,17 +9,17 @@ st="/usr/local/bin/speedtest-cli"
 
 #
 # set the max size of the csv file.
-# there are 3 runs every hour, and I want 45 days of history
+# there are 3 runs every hour, and I want 90 days of history
 #
-maxSz=3*24*45
+maxSz=3*24*90
 maxSz=$(($maxSz + 1))
 
 function removeLine()
 {
 	local file=$1
-	local sz=$(wc -l $file | cut -f1 -d '')
+	local sz=$(wc -l $file | cut -f1 -d' ')
 
-	if [[ $wc < $maxSz ]]; then
+	if [[ $sz -lt $maxSz ]]; then
 		return
 	fi
 
