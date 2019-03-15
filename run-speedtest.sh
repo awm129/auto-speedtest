@@ -19,14 +19,23 @@ function removeLine()
 	local file=$1
 	local sz=$(wc -l $file | cut -f1 -d' ')
 
+	# need at least 3 lines
+	sz=$(($sz - 3))
+
+	echo $file is $sz big. max is $maxSz
+
 	if [[ $sz -lt $maxSz ]]; then
 		return
 	fi
 
 	tmp=$(mktemp)
 	head -n 1 $file >> $tmp
-	tail -n +3 $file >> $tmp
+	tail -n +$(($sz - $maxSz)) $file >> $tmp
 	mv $tmp $file
+	chmod 644 $file
+
+	sz=$(wc -l $file | cut -f1 -d' ')
+	echo $file is now $sz
 }
 
 #
@@ -72,7 +81,18 @@ echo $out >> $dir/$dat
 #
 fcount=$(echo $out | tr -cd ',' | wc -c)
 fcount=$(($fcount + 1))
-echo $out | cut -d, -f$(($fcount-4)),$(($fcount-1)),$fcount >> $dir/$extract
+
+# filter the result, selecting just the fields we need (speedtest-cli v2.1.1)
+out=$(echo $out | cut -d, -f$(($fcount-6)),$(($fcount-2)),$(($fcount-3)))
+
+# extract the date and convert to local time
+d=$(date -d "$(echo $out | cut -d, -f1)" -Iseconds)
+
+# re-assemble the csv line
+out="$d,$(echo $out | cut -d, -f2,3)"
+
+# append to extract
+echo $out >> $dir/$extract
 
 #
 # prevent the files from getting yuge

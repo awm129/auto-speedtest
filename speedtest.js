@@ -43,7 +43,7 @@ function drawVisualization() {
 			options:{
 				title: arrayData[0][1] + " / " + arrayData[0][2] + " Speed (Mbps)",
 				titleTextStyle : {color: 'grey', fontSize: 48},
-				curveType: 'function',
+				//curveType: 'function',
 				animation: {
 					startup: true,
 					duration: 1500,
@@ -88,4 +88,4 @@ function drawVisualization() {
 		chart.draw();
 	});
 }
-google.setOnLoadCallback(drawVisualization)
+google.charts.setOnLoadCallback(drawVisualization)
